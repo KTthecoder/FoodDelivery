@@ -27,8 +27,6 @@ const CartItem = ({quantity, title, price, description, id, note, orderItemId, p
           .then((data) => {
             setData(data)
             setIsLoading(false)
-            // console.log(data)
-            console.log(response)
           })
           .catch(err => {
             console.log(err.message)
@@ -61,9 +59,6 @@ const CartItem = ({quantity, title, price, description, id, note, orderItemId, p
                         })
                         .then(res => res.json())
                         .then((data) => {
-                            // console.log(data)
-                            // navigation.dispatch()
-                            // navigation.push('Cart')
                             setRefresh(!refresh)
                             setResponse(data)
                         })
@@ -85,9 +80,6 @@ const CartItem = ({quantity, title, price, description, id, note, orderItemId, p
                         })
                         .then(res => res.json())
                         .then((data) => {
-                            // console.log(data)
-                            // navigation.dispatch()
-                            // navigation.push('Cart')
                             setRefresh(!refresh)
                             setResponse(data)
                         })

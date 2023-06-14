@@ -20,23 +20,6 @@ def OrdersView(request):
                 'Past Orders' : None,
             }
 
-            # try:
-            #     order, created = OrderModel.objects.get_or_create(user = user, ordered = False)
-            #     orderItems = OrderItemModel.objects.filter(order = order).count()
-
-            #     pastOrders = OrderModel.objects.filter(user = user, ordered = True)[:3]
-            #     orderSerializer = OrderSerializer(order)
-            #     pastOrdersSerilizer = OrderSerializer(pastOrders, many = True)
-
-            #     
-
-            #     return Response(response, status=status.HTTP_200_OK)
-            # except:
-            #     data = {'Error' : 'No Orders'}
-            #     return Response(data, status=status.HTTP_200_OK)
-
-
-
             try: 
                 order, created = OrderModel.objects.get_or_create(user = user, ordered = False)
                 orderSerializer = OrderSerializer(order)
@@ -52,7 +35,7 @@ def OrdersView(request):
                 response['Current Order Items'] = 0
 
             try: 
-                pastOrders = OrderModel.objects.filter(user = user, ordered = True)[:3]
+                pastOrders = OrderModel.objects.filter(user = user, ordered = True).order_by('-id')[:3]
                 pastOrdersSerilizer = OrderSerializer(pastOrders, many = True)
                 response['Past Orders'] = pastOrdersSerilizer.data
             except OrderModel.DoesNotExist:
@@ -74,7 +57,7 @@ def AllPastOrders(request):
         if request.method == 'GET':
             user = request.user
 
-            pastOrders = OrderModel.objects.filter(user = user, ordered = True)
+            pastOrders = OrderModel.objects.filter(user = user, ordered = True).order_by('-id')
 
             pastOrdersSerilizer = OrderSerializer(pastOrders, many = True)
 
@@ -92,21 +75,28 @@ def CurrentOrderDetails(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             user = request.user
-            order, created = OrderModel.objects.get_or_create(user = user, ordered = False)
-            orderItems = OrderItemModel.objects.filter(order = order)
-            deliveryInfo = DeliveryInfoModel.objects.get(user = request.user)
+            try: 
+                order, created = OrderModel.objects.get_or_create(user = user, ordered = False)
+                orderItems = OrderItemModel.objects.filter(order = order)
+                deliveryInfo = DeliveryInfoModel.objects.get(user = request.user)
 
-            orderSerializer = OrderSerializer(order)
-            orderItemSerializer = OrderItemSerializer(orderItems, many = True)
-            deliverySerializer = DeliveryInfoSerializer(deliveryInfo)
+                orderSerializer = OrderSerializer(order)
+                orderItemSerializer = OrderItemSerializer(orderItems, many = True)
+                deliverySerializer = DeliveryInfoSerializer(deliveryInfo)
 
-            response = {
-                'Current Order' : orderSerializer.data,
-                'Current Order Items' : orderItemSerializer.data,
-                'Delivery Info' : deliverySerializer.data,
-            }
+                response = {
+                    'Current Order' : orderSerializer.data,
+                    'Current Order Items' : orderItemSerializer.data,
+                    'Delivery Info' : deliverySerializer.data,
+                }
 
-            return Response(response, status=status.HTTP_200_OK)
+                return Response(response, status=status.HTTP_200_OK)
+            except: 
+                response = {
+                    'Error' : 'No Current Order',
+                }
+
+                return Response(response, status=status.HTTP_200_OK)
         else:
             data = {'Error' : 'Bad Request'}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)

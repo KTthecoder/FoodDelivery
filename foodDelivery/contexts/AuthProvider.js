@@ -10,8 +10,6 @@ const AuthProvider = (props) => {
     let [refreshToken, setRefreshToken] = useState(async () => await SecureStore.getItemAsync('refreshToken') ? await SecureStore.getItemAsync('refreshToken') : null)
     let [accessToken, setAccessToken] = useState(async () => await SecureStore.getItemAsync('accessToken') ? await SecureStore.getItemAsync('accessToken') : null)
     let [user, setUser] = useState(async () => await SecureStore.getItemAsync('accessToken') ? jwt_decode(await SecureStore.getItemAsync('accessToken')) : null)
-    // let [refreshToken, setRefreshToken] = useState()
-    // let [accessToken, setAccessToken] = useState()
     let [loading, setLoading] = useState(false)
     let [isLoading, setIsLoading] = useState(true)
     const navigation = useNavigation()
@@ -33,22 +31,12 @@ const AuthProvider = (props) => {
             setAccessToken(data['access'])
             setUser(jwt_decode(data['access']))
             if(!await SecureStore.getItemAsync('refreshToken')){
-                SecureStore.setItemAsync('refreshToken', data['access'])
+                SecureStore.setItemAsync('refreshToken', data['refresh'])
             }
             if(!await SecureStore.getItemAsync('accessToken')){
                 SecureStore.setItemAsync('accessToken', data['access'])
             }
-
-            // try{
-            //     SecureStore.setItemAsync('refreshToken', data['refresh'])
-            //     SecureStore.setItemAsync('accessToken', data['access'])
-            //     console.log("Data: ", data['refresh'])
-            // } 
-            // catch{
-            //     console.log("Error Occured")
-            // }
-            
-            
+                   
             GetToken()
         }
         else{
@@ -66,66 +54,94 @@ const AuthProvider = (props) => {
     }
 
     async function updateToken() {
-        console.log("Refresh: " + refreshToken)
-        console.log("Access: " + accessToken)
-        let response = await fetch('http://192.168.1.34:8000/api/token/refresh/', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'refresh' : refreshToken
+        await SecureStore.getItemAsync("refreshToken").then(async(token) => {
+            let response = await fetch('http://192.168.1.34:8000/api/token/refresh/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'refresh' : token
+                })
             })
+            let data = await response.json()
+            if(response.status == 200){
+                setAccessToken(data['access'])
+                setUser(jwt_decode(data['access']))
+                await SecureStore.setItemAsync('accessToken', data['access'])
+                GetToken()
+            }
+            else{
+                console.log(data)
+            }
+
+            if(loading){
+                setLoading(false)
+            }
         })
-        let data = await response.json()
-
-        if(response.status == 200){
-            setAccessToken(data.access)
-            setUser(jwt_decode(data.access))
-            console.log('User is stil logged in')
-            await SecureStore.setItemAsync('accessToken', JSON.stringify(data.access))
-        }
-        else{
-            logoutUser()
-        }
-
-        if(loading){
-            setLoading(false)
-        }
     }
 
     async function GetToken() {
-        // try{
-        //     if(await SecureStore.getItemAsync('refreshToken') === null){
-        //         setRefreshToken(null)
-        //     }
-        //     else{
-        //         setRefreshToken(await SecureStore.getItemAsync('refreshToken'))
-
-        //         if(await SecureStore.getItemAsync('accessToken') === null){
-        //             setAccessToken(null)
-        //             setIsLoading(false)
-        //             console.log("Token False")
-        //         }
-        //         else{
-        //             setAccessToken(await SecureStore.getItemAsync('accessToken'))
-        //             setIsLoading(false)
-        //             console.log("AccessToken: ", await SecureStore.getItemAsync('accessToken'))
-        //         }
-        //     }
-        //   }
-        // catch(e){
-        //     console.log(e)
-        // }
+        setIsLoading(true)
         await SecureStore.getItemAsync("refreshToken").then((token) => {
-            setRefreshToken(token)
-            setIsLoading(false)
+            fetch('http://192.168.1.34:8000/api/token/verify/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'token' : token
+                })
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                    if(data['detail']){
+                        logoutUser()
+                    }
+                    else{
+                        try{
+                            setRefreshToken(token)
+                            setIsLoading(false)
+                        }
+                        catch{
+                            console.log('Problem')
+                        }
+                    }
+                }
+            )
+            .catch((err) => console.log(err))
+            
         })
 
         await SecureStore.getItemAsync("accessToken").then((token) => {
-            setAccessToken(token)
-            setUser(jwt_decode(token))
-            setIsLoading(false)
+            fetch('http://192.168.1.34:8000/api/token/verify/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'token' : token
+                })
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                    if(data['detail']){
+                        logoutUser()
+                    }
+                    else{
+                        try{
+                            setAccessToken(token)
+                            setUser(jwt_decode(token))
+                            setIsLoading(false)
+                        }
+                        catch{
+                            console.log('Problem')
+                        }
+                    }
+                }
+            )
+            .catch((err) => console.log(err))
+           
         })
     }
 
@@ -134,7 +150,7 @@ const AuthProvider = (props) => {
             updateToken()
         }
 
-        let time = 1000 * 60 * 60 * 24
+        let time = 1000 * 60 * 3595
         let interval = setInterval(() => {
             if(accessToken){
                 updateToken()
@@ -159,7 +175,7 @@ const AuthProvider = (props) => {
         GetToken()
     }, [accessToken])
 
-    return (
+    return ( 
         <AuthContext.Provider value={data}>
             {isLoading ? null : props.children}
         </AuthContext.Provider>

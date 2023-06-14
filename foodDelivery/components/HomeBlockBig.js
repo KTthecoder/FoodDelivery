@@ -1,86 +1,13 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { AntDesign } from '@expo/vector-icons'; 
-import { AuthContext } from '../contexts/AuthProvider';
-import useFetchGet from '../hooks/useFetchGet'
 
-const HomeBlockBig = ({title, image, deliveryFeePrice, discountDeliveryFeePrice, waitingTime, rating, slug, id, refresh1='', setRefresh1='', refresh2='', setRefresh2=''}) => {
+const HomeBlockBig = ({title, image, deliveryFeePrice, discountDeliveryFeePrice, waitingTime, rating, slug}) => {
   const { width } = Dimensions.get('screen')
   const navigation = useNavigation()
-  const { user, accessToken } = useContext(AuthContext)
-
-  // const { data, refresh, setRefresh } = useFetchGet(`http://192.168.1.34:8000/api/resteurant/favorite/${id}`)
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('DetailsResteurantScreen', { slug: slug })} className='mt-7' style={{width: width * 0.90}}>
-      
-      {/* {data && data['Error'] != 'No Favorite' ? (
-        <TouchableOpacity 
-        onPress={() => {
-          fetch(`http://192.168.1.34:8000/api/resteurant/favorite/remove`, {
-                method: "POST",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization' : 'Bearer ' + accessToken
-                },
-                body: JSON.stringify({
-                  'user': user['user_id'],
-                  'resteurant': id,
-                  'favorite' : true
-                })
-            })
-            .then(res => res.json())
-            .then((data) => {
-              // console.log(data)
-              // navigation.dispatch()
-              // navigation.push('Cart')
-              setRefresh(!refresh)
-              setRefresh1(!refresh1)
-              setRefresh2(!refresh2)
-              // setResponse(data)
-            })
-            .catch(err => {
-              console.log(err.message)
-            })
-          }}
-        className='absolute top-4 right-4' style={{zIndex: 1}}>
-          <AntDesign name="heart" size={25} color="red" />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity 
-          onPress={() => {
-            fetch(`http://192.168.1.34:8000/api/resteurant/favorite/add`, {
-                  method: "POST",
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer ' + accessToken
-                  },
-                  body: JSON.stringify({
-                    'user': user['user_id'],
-                    'resteurant': id,
-                    'favorite' : true
-                  })
-              })
-              .then(res => res.json())
-              .then((data) => {
-                // console.log(data)
-                // navigation.dispatch()
-                // navigation.push('Cart')
-                setRefresh(!refresh)
-                setRefresh1(!refresh1)
-                setRefresh2(!refresh2)
-                // setResponse(data)
-              })
-              .catch(err => {
-                console.log(err.message)
-              })
-            }}
-        className='absolute top-4 right-4' style={{zIndex: 1}}>
-          <AntDesign name="hearto" size={25} color="white" />
-        </TouchableOpacity>
-      )} */}
-
       <Image source={{cache: "force-cache", uri: `http://192.168.1.34:8000${image}`}} style={{width: '100%', height: 180}} />
       <View className='flex-row justify-between mt-2'>
         <View className=''>

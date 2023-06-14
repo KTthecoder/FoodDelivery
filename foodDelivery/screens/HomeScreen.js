@@ -1,79 +1,22 @@
-import { View, Text, SafeAreaView, TouchableOpacity, StatusBar, Dimensions, ActivityIndicator, ScrollView, Platform, Touchable, FlatList, RefreshControl } from 'react-native'
-import React, { useRef, useState, useEffect, useContext } from 'react'
-import { LogBox } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, ActivityIndicator, ScrollView, Platform } from 'react-native'
+import React from 'react'
 import { Ionicons } from '@expo/vector-icons'; 
 import { useFonts } from 'expo-font'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useScrollToTop } from '@react-navigation/native';
-
 import HomeSmCategory from '../components/HomeSmCategory';
 import HomeRow from '../components/HomeRow';;
 import HomeBlockBig from '../components/HomeBlockBig';
-import { AuthContext } from '../contexts/AuthProvider';
 import useFetchGet from '../hooks/useFetchGet';
 
 const HomeScreen = () => {
     const { width } = Dimensions.get('screen')
-
-    // const [data, setData] = useState()
-    // const [loading, setLoading] = useState(true)
-    // const { accessToken, isLoading } = useContext(AuthContext)
-
     const navigation = useNavigation()
-    const route = useRoute()
 
     const ref = React.useRef(null);
     useScrollToTop(ref);
-    const [rControl, setRControl] = useState(false)
 
-    const { data, refresh, setRefresh, isLoading } = useFetchGet('http://192.168.1.34:8000/api/home')
-
-    // const GetData = () => {
-    //     if(accessToken !== null){
-    //         fetch('http://192.168.1.34:8000/api/home', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization' : 'Bearer ' + accessToken
-    //             }
-    //         })
-    //         .then(res => res.json())
-    //         .then((data) => {
-    //             setData(data)
-    //             setLoading(false)
-    //             console.log('Essa: ', data['Order Items Count'])
-    //         })
-    //         .catch(err => {
-    //             console.log(err.message)
-    //         })
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     // navigation.addListener('focus', () => {
-    //         // if(accessToken !== null){
-    //         //     fetch('http://192.168.1.34:8000/api/home', {
-    //         //         method: 'GET',
-    //         //         headers: {
-    //         //             'Content-Type': 'application/json',
-    //         //             'Authorization' : 'Bearer ' + accessToken
-    //         //         }
-    //         //     })
-    //         //     .then(res => res.json())
-    //         //     .then((data) => {
-    //         //         setData(data)
-    //         //         setLoading(false)
-    //         //         console.log('Data: ', data)
-    //         //     })
-    //         //     .catch(err => {
-    //         //         console.log(err.message)
-    //         //     })
-    //         // }
-    //     // });
-    //     // navigation.addListener('state', () => {
-    //         // GetData()
-    //     // })
-    // }, [accessToken])
+    const { data, isLoading } = useFetchGet('http://192.168.1.34:8000/api/home')
 
     let [fontsLoaded] = useFonts({
         'Montserrat-Regular' : require('../assets/fonts/Montserrat-Regular.ttf'),

@@ -1,13 +1,8 @@
 import { View, Text, SafeAreaView, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
-import { AntDesign } from '@expo/vector-icons'; 
-import { Ionicons } from '@expo/vector-icons'; 
-import { Feather } from '@expo/vector-icons'; 
-import { MaterialIcons } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useContext } from 'react'
 import ProfileTopBtn from '../components/ProfileTopBtn';
 import ProfileBotBtn from '../components/ProfileBotBtn';
-import { useNavigation, useRoute, useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from '@react-navigation/native';
 import { AuthContext } from '../contexts/AuthProvider';
 import useFetchGet from '../hooks/useFetchGet';
 
@@ -16,36 +11,7 @@ const ProfileScreen = () => {
   const ref = React.useRef(null);
   useScrollToTop(ref);
   const { logoutUser } = useContext(AuthContext)
-
-  // const [data, setData] = useState(null)
-  // const [isLoading, setIsLoading] = useState(true)
-  // const { accessToken } = useContext(AuthContext)
-  const route = useRoute()
-  const navigation = useNavigation()
-
   const { data } = useFetchGet('http://192.168.1.34:8000/api/profile')
-
-  // useEffect(() => {
-  //   navigation.addListener('focus', () => {
-  //     fetch('http://192.168.1.34:8000/api/profile', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization' : 'Bearer ' + accessToken
-  //       }
-  //     })
-  //     .then(res => res.json())
-  //     .then((data) => {
-  //       setData(data)
-  //       setIsLoading(false)
-  //       // console.log(data)
-  //     })
-  //     .catch(err => {
-  //       console.log(err.message)
-  //     })
-  //   })
-   
-  // }, [])
 
   return (
     <SafeAreaView className='flex-1'>

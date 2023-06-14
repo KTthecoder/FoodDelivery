@@ -13,15 +13,7 @@ from ordersApp.models import *
 def HomeView(request):
     if request.user.is_authenticated: 
         if request.method == 'GET':
-        
-            # categories = CategoryModel.objects.all()
-            # categoriesSerializer = CategoriesSerializer(categories, many = True)
-
-            # resteurants = ResteurantModal.objects.all()
-            # resteurantsSerializer = ResteurantsSerializer(resteurants, many = True)
-
             user = request.user
-            
 
             response = {
                 'Order Items Count' : None,

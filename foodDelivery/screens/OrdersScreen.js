@@ -1,10 +1,9 @@
-import { View, Text, Dimensions, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useEffect, useState, useContext } from 'react'
+import { View, Text, Dimensions, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
+import React from 'react'
 import OrderCurrentBlock from '../components/OrderCurrentBlock'
 import OrderPastBlock from '../components/OrderPastBlock'
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import useFetchGet from '../hooks/useFetchGet'
-import { AuthContext } from '../contexts/AuthProvider';
 
 const OrdersScreen = () => {
   const { width } = Dimensions.get('screen')
@@ -12,30 +11,7 @@ const OrdersScreen = () => {
   useScrollToTop(ref);
   const navigation = useNavigation()
 
-  // const [data, setData] = useState(null)
-  // const [isLoading, setIsLoading] = useState(true)
-  // const { accessToken } = useContext(AuthContext)
-
-  const { data, refresh, setRefresh } = useFetchGet('http://192.168.1.34:8000/api/orders')
-  // useEffect(() => {
-  //   navigation.addListener('focus', () => {
-  //     fetch('http://192.168.1.34:8000/api/orders', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization' : 'Bearer ' + accessToken
-  //       }
-  //     })
-  //     .then(res => res.json())
-  //     .then((data) => {
-  //       setData(data)
-  //       setIsLoading(false)
-  //     })
-  //     .catch(err => {
-  //       console.log(err.message)
-  //     })
-  //   })
-  // }, [])
+  const { data } = useFetchGet('http://192.168.1.34:8000/api/orders')
   
   return (
     <SafeAreaView className='flex-1'>

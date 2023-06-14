@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, Image, Dimensions, Switch } from 'react-native'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
+import React, { useContext, useRef } from 'react'
 import { Formik } from 'formik'
 import KeyboardAvoidWrapper from '../components/KeyboardAvoidWrapper'
 import { AuthContext } from '../contexts/AuthProvider'
@@ -7,8 +7,6 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { Entypo } from '@expo/vector-icons'; 
 import useFetchGet from '../hooks/useFetchGet'
-import jwt_decode from "jwt-decode";
-import * as SecureStore from 'expo-secure-store'
 
 const DeliveryFormEditScreen = () => {
     const ref1 = useRef()
@@ -31,7 +29,7 @@ const DeliveryFormEditScreen = () => {
         return <ActivityIndicator size='large' />
     }
 
-    const { width, height } = Dimensions.get('screen')
+    const { width } = Dimensions.get('screen')
 
     return (
         <KeyboardAvoidWrapper>

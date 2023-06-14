@@ -1,8 +1,7 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, Image, Dimensions } from 'react-native'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Formik } from 'formik'
 import KeyboardAvoidWrapper from '../components/KeyboardAvoidWrapper'
-import { AuthContext } from '../contexts/AuthProvider'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'; 

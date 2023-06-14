@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'; 
@@ -24,7 +24,6 @@ const DetailsResteurantScreen = () => {
                     </TouchableOpacity>
                 </View>
                 <View className='w-screen items-center' style={{height: height * 0.26}}>
-                    {/* <Image source={require('../assets/images/pizza.jpg')} style={{width: width, height: height * 0.26, resizeMode: 'cover'}} /> */}
                     <Image source={{cache: "force-cache", uri: `http://192.168.1.34:8000${data && data['resteurant'].image}`}} style={{width: width, height: height * 0.26, resizeMode: 'cover'}} />
                 </View>
                 <View className='w-screen bg-white items-center py-3 rounded-b-xl'>

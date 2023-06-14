@@ -2,8 +2,6 @@ import { View, Text, Dimensions, TouchableOpacity, TextInput, TouchableWithoutFe
 import React, { useContext, useState } from 'react'
 import { Entypo } from '@expo/vector-icons'; 
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
-import DeliveryInfoBlock from '../components/DeliveryInfoBlock';
 import { useScrollToTop } from '@react-navigation/native';
 import { AuthContext } from '../contexts/AuthProvider';
 
@@ -73,11 +71,6 @@ const ProductDetails = () => {
                         
                         <View className='w-screen items-center bg-white absolute flex-1 pb-14 bottom-0 pt-6 rounded-t-xl'>
                             <View className='flex-row items-center justify-between' style={{width: width * 0.9}}>
-                                {/* <View className='flex-row items-center justify-center rounded-xl px-2' style={{borderWidth: 1, borderColor: '#cdcdcd'}}>
-                                    <AntDesign name="minus" size={27} color="black" />
-                                    <TextInput keyboardType='numeric' style={{fontFamily: 'Montserrat-SemiBold', fontSize: 18, paddingHorizontal: 15, height: 48}} placeholder='1' placeholderTextColor={'gray'} />
-                                    <AntDesign name="plus" size={27} color="black" />
-                                </View> */}
                                 <TouchableOpacity onPress={() => {
                                     fetch(`http://192.168.1.34:8000/api/product/add/${route.params.id}/${route.params.resteurantId}`, {
                                             method: "POST",

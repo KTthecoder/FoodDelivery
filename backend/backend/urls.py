@@ -20,7 +20,7 @@ from django.conf import settings
 from homeApp.views import *
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
-    TokenRefreshView,
+    TokenVerifyView,
 )
 from accountApp.views import *
 from searchApp.views import *
@@ -30,8 +30,9 @@ from cartApp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/refresh/', get_tokens_for_user, name='get_tokens_for_user'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
     path('api/register', RegisterPage, name='RegisterPage'),
     path('api/home', HomeView, name='HomeView'),
     path('api/category/<str:slug>', ResteurantsByCategory, name='ResteurantsByCategory'),

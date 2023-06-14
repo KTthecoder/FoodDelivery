@@ -12,7 +12,6 @@ const OrdersStack = () => {
     <Stack.Navigator>
       <Stack.Screen name='Orders' component={OrdersScreen} options={{headerShown: false}}/>
       <Stack.Screen name='AllPastOrders' component={AllPastOrders} options={{headerShown: false}}/>
-      {/* <Stack.Screen name='Cart' component={CartScreen} options={{headerShown: false}}/> */}
       <Stack.Screen name='PastOrderDetails' component={PastOrderDetailsScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
   )

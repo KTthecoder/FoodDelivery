@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Modal, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, SafeAreaView, Dimensions, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import SearchCategoryBlock from '../components/SearchCategoryBlock';
@@ -8,11 +8,9 @@ import useFetchGet from '../hooks/useFetchGet';
 
 const SearchScreen = () => {
   const { width } = Dimensions.get('screen')
-
-  const [showModal, setShowModal] = useState(false)
   const navigation = useNavigation()
 
-  const { data, isLoading } = useFetchGet('http://192.168.1.34:8000/api/categories/all')
+  const { data } = useFetchGet('http://192.168.1.34:8000/api/categories/all')
 
   const ref = React.useRef(null);
   useScrollToTop(ref)

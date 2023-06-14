@@ -1,9 +1,9 @@
-import { View, Text, Image, Dimensions } from 'react-native'
+import { View, Text, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import DetailsBlock from './DetailsBlock'
 
-const DetailsRow = ({title, last, products, resteurantId}) => {
-    const { width, height } = Dimensions.get('screen')
+const DetailsRow = ({title, products, resteurantId}) => {
+    const { width } = Dimensions.get('screen')
     const [items, setItem] = useState([])
 
     const FilterProducts = () => {

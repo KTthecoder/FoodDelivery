@@ -1,5 +1,5 @@
-import { View, Text, Dimensions, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, Dimensions, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useContext, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import SearchBlock from '../components/SearchBlock';
 import { useNavigation } from '@react-navigation/native';

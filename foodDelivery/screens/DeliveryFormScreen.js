@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, Image, Dimensions } from 'react-native'
-import React, { useContext, useRef, useState } from 'react'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
+import React, { useContext, useRef } from 'react'
 import { Formik } from 'formik'
 import KeyboardAvoidWrapper from '../components/KeyboardAvoidWrapper'
 import { AuthContext } from '../contexts/AuthProvider'
@@ -11,8 +11,6 @@ const DeliveryFormScreen = () => {
     const ref1 = useRef()
     const ref2 = useRef()
     const ref3 = useRef()
-    const { loginUser } = useContext(AuthContext)
-    const [hiddenPassword, setHiddenPassword] = useState(true)
     const navigation = useNavigation()
 
     const { user } = useContext(AuthContext)
@@ -27,7 +25,7 @@ const DeliveryFormScreen = () => {
         return <ActivityIndicator size='large' />
     }
 
-    const { width, height } = Dimensions.get('screen')
+    const { width } = Dimensions.get('screen')
 
     return (
         <KeyboardAvoidWrapper>

@@ -1,6 +1,5 @@
-import { View, Text, Dimensions, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
-import OrderPastBlock from '../components/OrderPastBlock'
 import { useNavigation, useRoute, useScrollToTop } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons'; 
 import CartItem from '../components/CartItem';

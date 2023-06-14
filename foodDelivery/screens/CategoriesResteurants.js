@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons'; 
 import { useNavigation, useRoute } from '@react-navigation/native';
 import HomeBlockBig from '../components/HomeBlockBig';
 import { useScrollToTop } from '@react-navigation/native';
 import useFetchGet from '../hooks/useFetchGet';
 import { AuthContext } from '../contexts/AuthProvider';
+import { Ionicons } from '@expo/vector-icons';
 
 const CategoriesResteurants = () => {
   const { width } = Dimensions.get('screen')
@@ -21,14 +21,6 @@ const CategoriesResteurants = () => {
   const [data1, setData1] = useState('')
 
   const { data } = useFetchGet(`http://192.168.1.34:8000/api/category/${route.params.category}`)
-
-  // if(isLoading){
-  //   return(
-  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-  //       <ActivityIndicator size='large' />
-  //     </View>
-  //   )
-  // }
 
   return (
     <SafeAreaView className='bg-white flex-1'>
@@ -72,7 +64,7 @@ const CategoriesResteurants = () => {
             <View style={{width: width * 0.9}}>
               <View className='flex-row items-center'>
                 <Text className='text-2xl mr-2' style={{fontFamily: 'Montserrat-SemiBold'}}>{data && data['title']}</Text>
-                <Image source={{cache: "force-cache", uri: `http://192.168.1.34:8000${data && data['icon']}`}} style={{width: 30, height: 30}} />
+                <Ionicons name="ios-fast-food-outline" size={30} color="#222" />
               </View>
             </View>
             <View className='mt-3 pb-6 w-screen items-center rounded-xl'>

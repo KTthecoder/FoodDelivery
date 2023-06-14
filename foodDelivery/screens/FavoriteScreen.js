@@ -39,7 +39,6 @@ const FavoriteScreen = () => {
                             </View>
                             <View className='mt-3 pb-6 w-screen items-center rounded-xl'>
                                 {data && data.map((item) => (
-                                    // <HomeBlockBig id={item.id} key={item.id} title={item.resteurantTitle} image={item.resteurantImage} deliveryFeePrice={item.resteurantDeliveryFeePrice} discountDeliveryFeePrice={item.resteurantDiscountDeliveryFeePrice} waitingTime={item.resteurantWaitingTime} rating={item.resteurantRating} slug={item.resteurantSlug}  />
                                     <HomeBlockBig refresh1={refresh} setRefresh1={setRefresh} id={item.resteurantId} key={item.resteurantId} title={item.resteurantTitle} image={item.resteurantImage} waitingTime={item.resteurantWaitingTime} rating={item.resteurantRating} deliveryFeePrice={item.resteurantDeliveryFeePrice} discountDeliveryFeePrice={item.resteurantDiscountDeliveryFeePrice} slug={item.resteurantSlug} />
                                 ))}
                             </View>

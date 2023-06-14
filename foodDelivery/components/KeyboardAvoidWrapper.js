@@ -13,15 +13,14 @@ const KeyboardAvoidWrapper = ({children}) => {
         behavior: 'height',
     })}>
         <ScrollView 
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', width: width }} 
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps='handled'
-            style={{backgroundColor: '#fff'}}
-            
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', width: width }} 
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps='handled'
+          style={{backgroundColor: '#fff'}}
         >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                {children}
-            </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              {children}
+          </TouchableWithoutFeedback>
         </ScrollView>
     </KeyboardAvoidingView>
   )
